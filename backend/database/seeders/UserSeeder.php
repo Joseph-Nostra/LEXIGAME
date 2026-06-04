@@ -19,12 +19,12 @@ class UserSeeder extends Seeder
         'password' => bcrypt('password'),
         'role' => 'admin'
     ]);
-    User::factory(3)->create([
-        'role'=>'vendeur'
-    ]);
+    // User::factory(3)->create([
+     //   'role'=>'vendeur'
+    //]);
 
-    User::factory(5)->create([
-        'role'=>'client'
-    ]);
+    //User::factory(5)->create([
+    //    'role'=>'client'
+    //]);
     }
 }
