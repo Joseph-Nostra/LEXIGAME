@@ -101,7 +101,7 @@ const Navbar = () => {
           {user ? (
             <button onClick={handleLogout} className="btn-primary" style={{marginLeft: '15px', padding: '5px 15px'}}>Logout</button>
           ) : (
-            <Link to="/login" style={{display: 'flex', alignItems: 'center', gap: '5px', marginLeft: '10px'}}><User size={20} /> / Connexion</Link>
+            <Link to="/login" style={{display: 'flex', alignItems: 'center', gap: '5px', marginLeft: '10px'}}><User size={20} />  Connexion</Link>
           )}
         </div>
       </div>
