@@ -12,9 +12,9 @@ const AdminDashboard = () => {
   const [returns, setReturns] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+ ; useEffect(() => {
     fetchAll();
-  }, []);
+  }, [])
 
   const fetchAll = async () => {
     setLoading(true);
