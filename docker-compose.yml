@@ -15,7 +15,7 @@ services:
 
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: lexigam
+      MYSQL_DATABASE: lexigame
 
     ports:
       - "3307:3306"
