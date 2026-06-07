@@ -1,21 +1,23 @@
 services:
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
     ports:
       - "8000:8000"
+    depends_on:
+      - db
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
     ports:
       - "5173:5173"
 
   db:
     image: mysql:8
-
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: lexigame
-
     ports:
       - "3307:3306"

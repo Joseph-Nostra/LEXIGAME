@@ -2,13 +2,15 @@ FROM php:8.3-cli
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y \
+    unzip git curl libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 COPY . .
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-
-RUN php composer-setup.php
-
-RUN php composer.phar install
+RUN composer install
 
 EXPOSE 8000
 
