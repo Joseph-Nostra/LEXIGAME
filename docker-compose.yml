@@ -5,9 +5,9 @@ services:
       context: ./backend
     ports:
       - "8000:8000"
-    working_dir: /var/www
+    working_dir: /app
     volumes:
-      - ./backend:/var/www
+      - ./backend:/app
     depends_on:
       - db
     environment:
@@ -23,6 +23,7 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+      - /app/node_modules
 
   db:
     image: mysql:8
