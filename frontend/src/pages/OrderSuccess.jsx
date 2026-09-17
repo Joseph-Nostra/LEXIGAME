@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { CheckCircle, Download, FileText } from 'lucide-react';
+import { CheckCircle, Download } from 'lucide-react';
 import api from '../axios';
 
 const OrderSuccess = () => {

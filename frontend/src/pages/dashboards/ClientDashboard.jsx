@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import api from '../../axios';
-import { History, Box, Truck, RotateCcw, Search } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import {  Box, RotateCcw  } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ClientDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     api.get('/commandes')

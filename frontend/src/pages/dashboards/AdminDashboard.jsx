@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../axios';
-import { Package, Check, X, Clock, Trash2, Users, MessageSquare, Tag, DollarSign, RotateCcw } from 'lucide-react';
+import { Package, Check, X, Clock, Trash2, Users, MessageSquare, Tag,  RotateCcw } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
