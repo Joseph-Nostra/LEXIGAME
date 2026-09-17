@@ -55,7 +55,7 @@ const AddProduct = () => {
         'Content-Type': 'multipart/form-data'
       }
     })
-      .then(response => {
+      .then(() => {
         setMessage({ type: 'success', text: 'Produit ajouté avec succès !' });
         setTimeout(() => navigate('/shop'), 1500);
       })

@@ -9,29 +9,29 @@ const ClientDashboard = () => {
   
 
   useEffect(() => {
-    api.get('/commandes')
-      .then(res => {
-        setOrders(res.data.data);
-        setLoading(false);
-      })
-      .catch(err => console.error(err));
-  }, []);
+  api.get('/commandes')
+    .then(res => {
+      setOrders(res.data.data);
+      setLoading(false);
+    })
+    .catch(err => console.error(err));
+}, []);
 
   const handleReturn = async (ligneId) => {
-    const raison = prompt("Raison du retour :");
-    if (!raison) return;
+  const raison = prompt("Raison du retour :");
+  if (!raison) return;
 
-    try {
-        await api.post('/retours', {
-            ligne_commande_id: ligneId,
-            quantite: 1, // par defaut
-            raison: raison
-        });
-        alert("Demande de retour envoyée !");
-    } catch (err) {
-        alert("Erreur");
-    }
-  };
+  try {
+    await api.post('/retours', {
+      ligne_commande_id: ligneId,
+      quantite: 1, // par defaut
+      raison: raison
+    });
+    alert("Demande de retour envoyée !");
+  } catch {
+    alert("Erreur");
+  }
+};
 
   if (loading) return <div className="container mt-4"><h3>Chargement de votre historique...</h3></div>;
 

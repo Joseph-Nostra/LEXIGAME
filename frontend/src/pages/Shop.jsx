@@ -15,7 +15,6 @@ const Shop = () => {
   const nomQuery = searchParams.get('nom');
 
   useEffect(() => {
-    setLoading(true);
     const url = nomQuery ? `/produits?nom=${nomQuery}` : '/produits';
     api.get(url)
       .then(response => {

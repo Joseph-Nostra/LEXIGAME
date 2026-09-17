@@ -35,7 +35,7 @@ const AddCategory = () => {
         'Content-Type': 'multipart/form-data'
       }
     })
-      .then(response => {
+      .then(() => {
         setMessage({ type: 'success', text: 'Catégorie ajoutée avec succès !' });
         setFormData({ nom: '', description: '', statut: 1 });
         setImageFile(null); // Reset
