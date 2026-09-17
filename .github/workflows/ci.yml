@@ -61,7 +61,7 @@ jobs:
           coverage: none
 
       - name: Setup Composer
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           working-directory: backend
 
