@@ -1,59 +1,258 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎮 LEXIGAME — Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Backend de l'application **LEXIGAME**, développé avec **Laravel**.
 
-## About Laravel
+Le backend fournit l'API nécessaire au fonctionnement de l'application et assure notamment la gestion de la logique métier, des données, de l'authentification et de la communication avec la base de données.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📌 Présentation
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**LEXIGAME** est une application web interactive orientée jeux et apprentissage.
 
-## Learning Laravel
+Le backend constitue la partie serveur de l'application. Il est responsable de :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* 🔌 Fournir les API REST
+* 🧠 Gérer la logique métier
+* 🗄️ Gérer les données de l'application
+* 🔐 Gérer l'authentification et les utilisateurs
+* 🔄 Communiquer avec la base de données
+* 🛡️ Valider et traiter les requêtes envoyées par le frontend
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Le frontend React communique avec ce backend via des requêtes HTTP.
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 Technologies utilisées
 
-### Premium Partners
+### Backend
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **PHP**
+* **Laravel**
+* **Laravel Eloquent ORM**
+* **Laravel Migrations**
+* **Laravel API**
 
-## Contributing
+### Base de données
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Le projet utilise une base de données relationnelle compatible avec Laravel.
 
-## Code of Conduct
+La connexion à la base de données est configurée dans le fichier `.env`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Outils
 
-## Security Vulnerabilities
+* **Composer**
+* **Artisan**
+* **Git**
+* **GitHub**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 📂 Structure du projet
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+backend/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   └── Requests/
+│   │
+│   ├── Models/
+│   └── ...
+│
+├── bootstrap/
+│
+├── config/
+│
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   └── seeders/
+│
+├── public/
+│
+├── resources/
+│
+├── routes/
+│   ├── api.php
+│   └── web.php
+│
+├── storage/
+│
+├── tests/
+│
+├── .env.example
+├── artisan
+├── composer.json
+├── composer.lock
+└── README.md
+```
+
+> La structure peut évoluer avec l'avancement du projet.
+
+---
+
+## ⚙️ Prérequis
+
+Avant d'installer le backend, assurez-vous d'avoir installé :
+
+* **PHP**
+* **Composer**
+* **MySQL** ou une base de données compatible
+* **Git**
+
+Vérifier PHP :
+
+```bash
+php -v
+```
+
+Vérifier Composer :
+
+```bash
+composer -V
+```
+
+Vérifier Laravel/Artisan :
+
+```bash
+php artisan --version
+```
+
+---
+
+## 📥 Installation
+
+### 1. Cloner le repository
+
+```bash
+git clone https://github.com/Joseph-Nostra/LEXIGAME.git
+```
+
+### 2. Accéder au backend
+
+```bash
+cd LEXIGAME/backend
+```
+
+### 3. Installer les dépendances PHP
+
+```bash
+composer install
+```
+
+---
+
+## 🔐 Configuration de l'environnement
+
+Copier le fichier `.env.example` :
+
+### Windows
+
+```bash
+copy .env.example .env
+```
+
+### Linux / macOS
+
+```bash
+cp .env.example .env
+```
+
+Puis générer la clé de l'application :
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## 🗄️ Configuration de la base de données
+
+Ouvrir le fichier :
+
+```text
+.env
+```
+
+Puis configurer les paramètres de connexion à la base de données.
+
+Exemple :
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lexigame
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Adaptez ces valeurs à votre environnement local.
+
+---
+
+## 🏗️ Migrations
+
+Laravel utilise les migrations pour créer et modifier la structure de la base de données.
+
+Pour exécuter les migrations :
+
+```bash
+php artisan migrate
+```
+
+Pour recréer complètement la base de données :
+
+```bash
+php artisan migrate:fresh
+```
+
+> `migrate:fresh` supprime les tables existantes avant de les recréer. Utilisez cette commande uniquement dans un environnement de développement lorsque vous pouvez perdre les données existantes.
+
+---
+
+## 🌱 Seeders
+
+Si des seeders sont configurés dans le projet, ils peuvent être exécutés avec :
+
+```bash
+php artisan db:seed
+```
+
+Ou :
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+---
+
+## ▶️ Lancer le serveur
+
+Pour démarrer le serveur Laravel :
+
+```bash
+php artisan serve
+```
+
+Le backend sera généralement accessible à :
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+## 🔌 API
+
+Le backend expose des endpoints permettant au frontend React d'échanger des données avec le serveur.
+
+Architecture générale :
+
+```text
+┌──────────────────────┐
+│
+```
