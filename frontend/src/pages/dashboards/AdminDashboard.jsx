@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback,useEffect, useState } from 'react';
 import api from '../../axios';
-import { Package, Check, X, Clock, Trash2, Users, MessageSquare, Tag, DollarSign, RotateCcw } from 'lucide-react';
+import { Package, Check, X, Clock, Trash2, Users, MessageSquare, Tag,  RotateCcw } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -12,42 +12,46 @@ const AdminDashboard = () => {
   const [returns, setReturns] = useState([]);
   const [loading, setLoading] = useState(true);
 
- ; useEffect(() => {
-    fetchAll();
-  }, [])
-
-  const fetchAll = async () => {
+    const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-        const [prodRes, delRes, userRes, revRes, retRes, ordRes, catRes] = await Promise.all([
-            api.get('/produits?statut=pending'),
-            api.get('/produits?statut=deletion_pending'),
-            api.get('/users'),
-            api.get('/avis'),
-            api.get('/retours'),
-            api.get('/commandes'), // Admin needs a route for ALL orders
-            api.get('/categories')
-        ]);
-        setProducts(prodRes.data.data);
-        setDeletionRequests(delRes.data.data);
-        setUsers(userRes.data.data);
-        setReviews(revRes.data.data);
-        setReturns(retRes.data.data.filter(r => r.statut === 'en_attente'));
-        setOrders(ordRes.data.data);
-        setCategories(catRes.data.data);
+      const [prodRes, delRes, userRes, revRes, retRes, ordRes, catRes] = await Promise.all([
+        api.get('/produits?statut=pending'),
+        api.get('/produits?statut=deletion_pending'),
+        api.get('/users'),
+        api.get('/avis'),
+        api.get('/retours'),
+        api.get('/commandes'),
+        api.get('/categories')
+      ]);
+      setProducts(prodRes.data.data);
+      setDeletionRequests(delRes.data.data);
+      setUsers(userRes.data.data);
+      setReviews(revRes.data.data);
+      setReturns(retRes.data.data.filter(r => r.statut === 'en_attente'));
+      setOrders(ordRes.data.data);
+      setCategories(catRes.data.data);
     } catch (err) {
-        console.error(err);
+      console.error(err);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
+  }, []);
+  
+  useEffect(() => {
+  const loadDashboard = async () => {
+    await fetchAll();
   };
+
+  loadDashboard();
+}, [fetchAll]);
 
   const handleProductAction = async (id, action) => {
     try {
       await api.put(`/produits/${id}/${action}`);
       fetchAll();
       alert(`Action ${action} effectuée !`);
-    } catch (err) {
+    } catch  {
       alert("Erreur");
     }
   };
@@ -57,7 +61,7 @@ const AdminDashboard = () => {
     try {
       await api.delete(`/avis/${id}`);
       setReviews(reviews.filter(r => r.id !== id));
-    } catch (err) {
+    } catch {
       alert("Erreur lors de la suppression");
     }
   };
@@ -66,7 +70,7 @@ const AdminDashboard = () => {
     try {
         await api.put(`/commandes/${id}`, { statut: status });
         setOrders(orders.map(o => o.id === id ? { ...o, statut: status } : o));
-    } catch (err) {
+    } catch {
         alert("Erreur");
     }
   };
@@ -76,7 +80,7 @@ const AdminDashboard = () => {
       await api.put(`/retours/${id}/${action}`);
       setReturns(returns.filter(r => r.id !== id));
       alert("Action réussie");
-    } catch (err) {
+    } catch  {
       alert("Erreur");
     }
   };

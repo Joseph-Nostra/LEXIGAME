@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import api from '../axios';
 
 const AddCategory = () => {
@@ -35,7 +35,7 @@ const AddCategory = () => {
         'Content-Type': 'multipart/form-data'
       }
     })
-      .then(response => {
+      .then(() => {
         setMessage({ type: 'success', text: 'Catégorie ajoutée avec succès !' });
         setFormData({ nom: '', description: '', statut: 1 });
         setImageFile(null); // Reset

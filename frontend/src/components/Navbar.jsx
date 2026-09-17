@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, PlusCircle, Tag, LogOut, Search } from 'lucide-react';
+import { ShoppingCart, User , Search } from 'lucide-react';
 import { logout } from '../store/authSlice';
 import { clearCart } from '../store/cartSlice';
 import api from '../axios';

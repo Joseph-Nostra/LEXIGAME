@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import api from '../axios'; // Import de notre axios très simple
@@ -15,7 +15,6 @@ const Shop = () => {
   const nomQuery = searchParams.get('nom');
 
   useEffect(() => {
-    setLoading(true);
     const url = nomQuery ? `/produits?nom=${nomQuery}` : '/produits';
     api.get(url)
       .then(response => {

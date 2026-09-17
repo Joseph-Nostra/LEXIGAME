@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Footer = () => {
   return (
     <footer className="glass" style={{marginTop: '120px', borderTop: '1px solid var(--border-color)', padding: '60px 0 30px 0'}}>

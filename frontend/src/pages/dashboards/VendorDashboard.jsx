@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DollarSign, Package, Trash2, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -12,27 +12,29 @@ const VendorDashboard = () => {
   const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
-    if (!user || user.role !== 'vendeur') return;
-    const fetchData = async () => {
-      try {
-        const results = await Promise.all([
-          api.get('/vendor-orders'),
-          api.get('/vendor-returns'),
-          api.get(`/produits?user_id=${user.id}&statut=pending`),
-          api.get(`/produits?user_id=${user.id}&statut=approved`)
-        ]);
+  if (!user || user.role !== 'vendeur') return;
 
-        setData(results[0].data);
-        setReturns(results[1].data.data);
-        setProducts([...results[3].data.data, ...results[2].data.data]);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [user?.id, user?.role]);
+  const fetchData = async () => {
+    try {
+      const results = await Promise.all([
+        api.get('/vendor-orders'),
+        api.get('/vendor-returns'),
+        api.get(`/produits?user_id=${user.id}&statut=pending`),
+        api.get(`/produits?user_id=${user.id}&statut=approved`)
+      ]);
+
+      setData(results[0].data);
+      setReturns(results[1].data.data);
+      setProducts([...results[3].data.data, ...results[2].data.data]);
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+    }
+  };
+
+  fetchData();
+}, [user]);
 
   const requestDeletion = async (id) => {
     const reason = window.prompt("Pourquoi voulez-vous supprimer ce produit ?");
@@ -41,7 +43,7 @@ const VendorDashboard = () => {
       await api.put(`/produits/${id}/request-deletion`, { reason });
       setProducts(products.map(p => p.id === id ? { ...p, statut: 'deletion_pending' } : p));
       alert("Demande envoyée");
-    } catch (err) {
+    } catch  {
       alert("Erreur");
     }
   };

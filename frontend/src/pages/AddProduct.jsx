@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api from '../axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -55,7 +55,7 @@ const AddProduct = () => {
         'Content-Type': 'multipart/form-data'
       }
     })
-      .then(response => {
+      .then(() => {
         setMessage({ type: 'success', text: 'Produit ajouté avec succès !' });
         setTimeout(() => navigate('/shop'), 1500);
       })
