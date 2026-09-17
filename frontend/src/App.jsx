@@ -1,8 +1,8 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Composants
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 // Pages
 import Home from './pages/Home';
@@ -19,12 +19,12 @@ import AdminDashboard from './pages/dashboards/AdminDashboard';
 import OrderSuccess from './pages/OrderSuccess';
 import ProductDetail from './pages/ProductDetail';
 import EditProduct from './pages/EditProduct';
-import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
@@ -34,7 +34,7 @@ function App() {
         <Route path="/order-success/:id" element={<OrderSuccess />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
         {/* Dashboards */}
         <Route path="/dashboard" element={<ClientDashboard />} />
         <Route path="/vendor/dashboard" element={<VendorDashboard />} />
@@ -45,6 +45,7 @@ function App() {
         <Route path="/admin/add-category" element={<AddCategory />} />
         <Route path="/vendor/edit-product/:id" element={<EditProduct />} />
       </Routes>
+
       <Footer />
     </Router>
   );
