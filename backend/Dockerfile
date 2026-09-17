@@ -23,14 +23,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_HOME=/tmp/composer
 
-# Copy composer files first (better cache layer)
-COPY composer.json composer.lock ./
+# Copy application code
+COPY . .
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
-
-# Copy application code
-COPY . .
 
 # Enable opcache configuration
 RUN echo "opcache.enable=1" >> /usr/local/etc/php/conf.d/opcache.ini && \
