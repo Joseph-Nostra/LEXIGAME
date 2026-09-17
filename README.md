@@ -1,47 +1,42 @@
 # 🎮 LEXIGAME
 
-**LEXIGAME** is a full-stack e-commerce web application built with **React** and **Laravel**, with a **MySQL** database and a fully containerized development environment using **Docker Compose**.
+**LEXIGAME** is a full-stack e-commerce web application built with **React**, **Laravel**, and **MySQL**.
 
-The application provides separate experiences for **clients, vendors, and administrators**, with authentication, product management, shopping cart, orders, payments, deliveries, reviews, returns, and dedicated dashboards.
+The project provides role-based experiences for **clients, vendors, and administrators**, including authentication, product management, shopping cart, orders, payments, deliveries, reviews, returns, and dedicated dashboards.
+
+The application uses **Docker Compose** for its development environment and **GitHub Actions** for continuous integration.
 
 ---
 
 ## ✨ Features
 
-### 👤 Authentication & Users
+### 🔐 Authentication & Authorization
 
 * User registration and login
 * Authentication with Laravel Sanctum
 * Logout and authenticated user profile
 * Role-based access control
-* Support for three main roles:
+* Client, Vendor, and Administrator roles
 
-  * Client
-  * Vendor
-  * Administrator
+### 🛍️ Customer
 
-### 🛍️ Customer Experience
-
-* Browse products
+* Browse products and categories
 * View product details
-* Browse product categories
 * Product reviews
 * Shopping cart
-* Cart synchronization
 * Checkout
 * Order management
-* Payment management
+* Payment information
 * Delivery information
 * Return requests
 
-### 🏪 Vendor Features
+### 🏪 Vendor
 
 * Vendor dashboard
-* Product creation
-* Product modification
-* Product deletion requests
+* Product creation and modification
 * Product management
-* Vendor orders
+* Product deletion requests
+* Vendor order management
 * Vendor return requests
 * Category management
 
@@ -51,7 +46,7 @@ The application provides separate experiences for **clients, vendors, and admini
 * User management
 * Product approval and rejection
 * Product deletion approval
-* Return request approval/rejection
+* Return request management
 * Review management
 * Category management
 
@@ -60,46 +55,50 @@ The application provides separate experiences for **clients, vendors, and admini
 ## 🧱 Architecture
 
 ```text
-                        ┌─────────────────────┐
-                        │      React          │
-                        │     Frontend        │
-                        │      Vite           │
-                        └──────────┬──────────┘
-                                   │
-                              Axios / HTTP
-                                   │
-                                   ▼
-                        ┌─────────────────────┐
-                        │      Laravel        │
-                        │       API           │
-                        │  Sanctum Auth       │
-                        └──────────┬──────────┘
-                                   │
-                                   │ Eloquent / PDO
-                                   ▼
-                        ┌─────────────────────┐
-                        │       MySQL         │
-                        │      Database       │
-                        └─────────────────────┘
+┌──────────────────────────┐
+│      React Frontend      │
+│          Vite            │
+│ React Router / Redux     │
+└────────────┬─────────────┘
+             │
+             │ Axios / HTTP
+             ▼
+┌──────────────────────────┐
+│       Laravel API        │
+│                          │
+│ Sanctum / REST API       │
+│ Eloquent ORM             │
+└────────────┬─────────────┘
+             │
+             │ PDO / Eloquent
+             ▼
+┌──────────────────────────┐
+│         MySQL 8          │
+│        Database          │
+└──────────────────────────┘
 ```
 
-The application is split into three Docker services:
+The application is organized into three Docker services:
 
 ```text
-LEXIGAME
+LEXIGAME/
 │
 ├── frontend  → React + Vite
-│
 ├── backend   → Laravel API
-│
 └── db        → MySQL 8
 ```
 
-Docker Compose exposes the Laravel backend on port `8000`, the React/Vite frontend on port `5173`, and MySQL on host port `3307`.
+### Docker Ports
+
+| Service  |   Port |
+| -------- | -----: |
+| Frontend | `5173` |
+| Backend  | `8000` |
+| MySQL    | `3307` |
 
 ---
 
-## 🚀 Tech Stack
+## 🛠️ Tech Stack
 
 ### Frontend
 
@@ -110,10 +109,8 @@ Docker Compose exposes the Laravel backend on port `8000`, the React/Vite fronte
 * React Redux
 * Axios
 * Lucide React
-* ESLint
 * JavaScript / JSX
-
-The frontend dependencies and scripts are defined in `frontend/package.json`.
+* ESLint
 
 ### Backend
 
@@ -124,20 +121,17 @@ The frontend dependencies and scripts are defined in `frontend/package.json`.
 * Eloquent ORM
 * REST API
 
-The backend uses Laravel 12 and Sanctum for API authentication.
-
 ### Database
 
 * MySQL 8
 
-The Docker configuration creates a `lexigame` database and persists its data through a Docker volume.
-
-### DevOps
+### DevOps & Tools
 
 * Docker
 * Docker Compose
 * Git
 * GitHub
+* GitHub Actions
 
 ---
 
@@ -146,18 +140,25 @@ The Docker configuration creates a `lexigame` database and persists its data thr
 ```text
 LEXIGAME/
 │
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
 ├── backend/
 │   ├── app/
 │   │   ├── Http/
-│   │   ├── Models/
-│   │   └── ...
+│   │   └── Models/
+│   │
 │   ├── database/
 │   │   ├── migrations/
 │   │   └── seeders/
+│   │
 │   ├── routes/
 │   │   ├── api.php
 │   │   ├── console.php
 │   │   └── web.php
+│   │
+│   ├── tests/
 │   ├── public/
 │   ├── resources/
 │   ├── storage/
@@ -174,46 +175,43 @@ LEXIGAME/
 │   │   ├── store/
 │   │   ├── App.jsx
 │   │   └── main.jsx
+│   │
 │   ├── public/
 │   ├── Dockerfile
 │   ├── package.json
 │   └── vite.config.js
 │
-└── docker-compose.yml
+├── docker-compose.yml
+└── README.md
 ```
 
 ---
 
 ## 🔌 API
 
-The Laravel backend exposes REST API endpoints for the main application resources.
+The Laravel backend exposes a REST API for the main application resources.
 
-### Public endpoints
+### Authentication
 
 ```text
 POST /api/register
 POST /api/login
-
-GET /api/produits
-GET /api/produits/{id}
-GET /api/produits/{id}/avis
-GET /api/categories
-```
-
-### Authentication
-
-Authenticated users can access:
-
-```text
 POST /api/logout
 GET  /api/me
 ```
 
 Authentication is handled using **Laravel Sanctum**.
 
-### Main resources
+### Products & Categories
 
-The API provides endpoints for:
+```text
+GET /api/produits
+GET /api/produits/{id}
+GET /api/produits/{id}/avis
+GET /api/categories
+```
+
+### Main Resources
 
 ```text
 Users
@@ -229,38 +227,19 @@ Reviews
 Returns
 ```
 
-Access to specific operations is controlled according to the user's role.
+Protected operations are controlled according to the authenticated user's role.
 
-For example:
+The API routes are defined in:
 
 ```text
-Admin
- ├── User management
- ├── Product approval
- ├── Product deletion approval
- ├── Return approval/rejection
- └── Review management
-
-Vendor
- ├── Product management
- ├── Categories
- ├── Orders
- └── Returns
-
-Client
- ├── Cart
- ├── Orders
- ├── Reviews
- └── Returns
+backend/routes/api.php
 ```
-
-The role-based API structure is implemented in `backend/routes/api.php`.
 
 ---
 
 ## 🖥️ Frontend Routes
 
-The React application currently contains routes for:
+The React application contains routes for the main e-commerce features:
 
 ```text
 /
@@ -282,7 +261,7 @@ The React application currently contains routes for:
 └── /vendor/edit-product/:id
 ```
 
-The application uses **React Router** for client-side navigation.
+Client-side navigation is handled with **React Router**.
 
 ---
 
@@ -290,11 +269,13 @@ The application uses **React Router** for client-side navigation.
 
 ### Requirements
 
-Make sure you have installed:
+Make sure you have:
 
-* Docker
-* Docker Compose
 * Git
+* Docker Desktop
+* Docker Compose
+
+PHP, Composer, Node.js, and MySQL do not need to be installed separately when using the Docker development environment.
 
 ### 1. Clone the repository
 
@@ -303,96 +284,123 @@ git clone https://github.com/Joseph-Nostra/LEXIGAME.git
 cd LEXIGAME
 ```
 
-### 2. Start the containers
+### 2. Configure Laravel
 
-```bash
-docker compose up --build
-```
-
-This will build and start:
-
-```text
-frontend → http://localhost:5173
-backend  → http://localhost:8000
-mysql    → localhost:3307
-```
-
-The ports and services are defined in `docker-compose.yml`.
-
-### 3. Run in detached mode
-
-```bash
-docker compose up -d --build
-```
-
-### 4. Stop the application
-
-```bash
-docker compose down
-```
-
-### 5. Stop and remove the database volume
-
-⚠️ This removes the persisted MySQL data:
-
-```bash
-docker compose down -v
-```
-
----
-
-## ⚙️ Environment Configuration
-
-The Laravel backend contains an `.env.example` file.
-
-Create your local environment file:
+Create the local environment file:
 
 ```bash
 cd backend
 cp .env.example .env
 ```
 
-Then configure the application according to your environment.
-
-For the Docker setup, the database service uses:
+For the Docker environment, configure the database connection:
 
 ```env
+DB_CONNECTION=mysql
 DB_HOST=db
+DB_PORT=3306
 DB_DATABASE=lexigame
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-These values correspond to the MySQL service defined in `docker-compose.yml`.
-
-Generate the Laravel application key:
+Return to the project root:
 
 ```bash
-php artisan key:generate
+cd ..
 ```
 
-> **Note:** Never commit your real `.env` file or sensitive credentials to GitHub.
+### 3. Start the containers
+
+```bash
+docker compose up -d --build
+```
+
+Check the running services:
+
+```bash
+docker compose ps
+```
+
+### 4. Generate the Laravel application key
+
+```bash
+docker compose exec backend php artisan key:generate
+```
+
+### 5. Run database migrations
+
+```bash
+docker compose exec backend php artisan migrate
+```
+
+### 6. Access the application
+
+```text
+Frontend → http://localhost:5173
+Backend  → http://localhost:8000
+MySQL    → localhost:3307
+```
+
+### Stop the application
+
+```bash
+docker compose down
+```
+
+To remove the containers and database volume:
+
+```bash
+docker compose down -v
+```
+
+> ⚠️ Removing the volume deletes the persisted MySQL data.
+
+---
+
+## ⚙️ Environment Configuration
+
+The backend uses Laravel's `.env` configuration.
+
+The `.env` file is intentionally excluded from Git.
+
+For Docker, the main database variables are:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=lexigame
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+> These credentials are intended for the local development environment only.
+
+Never commit real credentials, API keys, tokens, or production secrets to GitHub.
 
 ---
 
 ## 🗄️ Database
 
-LEXIGAME uses **MySQL 8** in Docker.
-
-The database is configured as:
+LEXIGAME uses **MySQL 8** through Docker Compose.
 
 ```text
 Database: lexigame
 Username: root
 Password: root
-Host: db
-Port inside Docker: 3306
-Port from host: 3307
+Docker Host: db
+Docker Port: 3306
+Host Port: 3307
 ```
 
-Docker Compose stores MySQL data in the `db_data` volume so that database data can persist between container restarts.
+Database persistence is handled through the Docker volume:
 
-Laravel migrations can be executed with:
+```text
+db_data
+```
+
+Run Laravel migrations with:
 
 ```bash
 docker compose exec backend php artisan migrate
@@ -402,28 +410,29 @@ docker compose exec backend php artisan migrate
 
 ## 🧪 Testing
 
-The Laravel backend includes PHPUnit configuration and Laravel's testing tools.
+The Laravel backend includes automated tests using Laravel's testing tools.
 
-Run the backend test suite with:
+Run the test suite:
 
 ```bash
 docker compose exec backend php artisan test
 ```
 
-The Composer configuration also defines a `test` script for Laravel tests.
-
 ---
 
 ## 🧹 Code Quality
 
-The frontend provides an ESLint configuration and linting script:
+The frontend uses ESLint.
+
+Run linting:
 
 ```bash
 cd frontend
+npm install
 npm run lint
 ```
 
-Build the production frontend:
+Build the frontend:
 
 ```bash
 npm run build
@@ -435,47 +444,81 @@ Preview the production build:
 npm run preview
 ```
 
-These scripts are defined in the frontend `package.json`.
+---
+
+## 🔄 Continuous Integration
+
+LEXIGAME uses **GitHub Actions** to validate changes automatically.
+
+The CI workflow is located at:
+
+```text
+.github/workflows/ci.yml
+```
+
+### Frontend checks
+
+```text
+npm ci
+npm run lint
+npm run build
+```
+
+### Backend checks
+
+```text
+Composer dependencies
+        ↓
+Laravel environment
+        ↓
+Laravel tests
+```
+
+The CI workflow runs on pushes to the configured branches and on pull requests targeting `main`.
 
 ---
 
 ## 📌 Project Status
 
-**Status:** Active development
+**Status: Active Development**
 
-The project currently contains the main e-commerce architecture with:
+The current project includes:
 
 * React frontend
 * Laravel REST API
 * MySQL database
-* Authentication
-* Role-based access
-* Client, vendor and admin dashboards
-* Product and category management
-* Cart and checkout
+* Laravel Sanctum authentication
+* Role-based authorization
+* Client dashboard
+* Vendor dashboard
+* Admin dashboard
+* Product management
+* Category management
+* Shopping cart
+* Checkout
 * Orders
-* Payments
-* Deliveries
+* Payment management
+* Delivery management
 * Reviews
 * Returns
-* Dockerized development environment
+* Docker development environment
+* GitHub Actions CI
 
 ---
 
-## 🔮 Possible Improvements
+## 🔮 Future Improvements
 
-Future improvements may include:
+Potential improvements include:
 
 * Online payment gateway integration
+* Advanced product search and filtering
 * Improved API validation and security
 * Automated frontend tests
 * Expanded backend test coverage
-* Advanced product search and filtering
 * Order tracking
-* Improved admin analytics
+* Advanced admin analytics
 * Production-oriented Docker configuration
-* CI/CD with GitHub Actions
-* Production deployment documentation
+* Production deployment
 
 ---
 
@@ -483,12 +526,12 @@ Future improvements may include:
 
 **Youssef Zhar**
 
-GitHub: [@Joseph-Nostra](https://github.com/Joseph-Nostra)
+GitHub: **@Joseph-Nostra**
 
 ---
 
 ## 📄 License
 
-This project is developed as a personal/educational portfolio project.
+This repository is developed as a personal and educational portfolio project.
 
-The Laravel backend itself is based on the Laravel framework and its project configuration specifies the MIT license.
+The project uses open-source dependencies whose respective licenses apply.
