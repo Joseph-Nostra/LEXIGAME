@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import{ useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import api from '../axios';
-import { Star, MessageCircle } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 const ProductDetail = () => {
     const { id } = useParams();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { DollarSign, Package, Trash2, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
